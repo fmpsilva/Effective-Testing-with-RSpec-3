@@ -14,8 +14,14 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 ENV["RACK_ENV"] = "test"
+require 'pry'
+require 'pry-byebug'
 
 RSpec.configure do |config|
+  config.when_first_matching_example_defined(:db) do
+    require_relative "support/db"
+  end
+
   config.filter_gems_from_backtrace "rack", "rack-test", "sequel", "sinatra"
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
